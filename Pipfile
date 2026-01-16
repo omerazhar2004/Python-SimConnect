@@ -9,6 +9,7 @@ pylint = "*"
 black = "*"
 
 [packages]
+pythonnet = "*"
 flask = "*"
 
 [requires]
