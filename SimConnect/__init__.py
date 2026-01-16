@@ -1,4 +1,5 @@
-from .SimConnect import SimConnect, millis, DWORD
+from .P3DSimConnect import P3DSimConnect as SimConnect, SIMCONNECT_UNUSED as DWORD
+def millis(): return 0 # mock
 from .RequestList import AircraftRequests, Request
 from .EventList import AircraftEvents, Event
 from .FacilitiesList import FacilitiesRequests, Facilitie
