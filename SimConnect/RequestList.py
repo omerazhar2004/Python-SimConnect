@@ -63,10 +63,7 @@ class Request(object):
 
 	def redefine(self):
 		if self.DATA_DEFINITION_ID is not None:
-			self.sm.dll.ClearDataDefinition(
-				self.sm.hSimConnect,
-				self.DATA_DEFINITION_ID.value,
-			)
+			self.sm.clear_data_definition(self.DATA_DEFINITION_ID)
 			self.defined = False
 			# self.sm.run()
 		if self._deff_test():
@@ -91,9 +88,8 @@ class Request(object):
 			rtype = None
 			DATATYPE = SIMCONNECT_DATATYPE.SIMCONNECT_DATATYPE_STRINGV
 
-		err = self.sm.dll.AddToDataDefinition(
-			self.sm.hSimConnect,
-			self.DATA_DEFINITION_ID.value,
+		err = self.sm.add_data_definition(
+			self.DATA_DEFINITION_ID,
 			self.definitions[0][0],
 			rtype,
 			DATATYPE,
@@ -103,8 +99,8 @@ class Request(object):
 		if self.sm.IsHR(err, 0):
 			self.defined = True
 			temp = DWORD(0)
-			self.sm.dll.GetLastSentPacketID(self.sm.hSimConnect, temp)
-			self.LastID = temp.value
+			# self.sm.dll.GetLastSentPacketID(self.sm.hSimConnect, temp)
+			self.LastID = self.sm.get_last_sent_packet_id()
 			return True
 		else:
 			LOGGER.error("SIM def" + str(self.definitions[0]))
